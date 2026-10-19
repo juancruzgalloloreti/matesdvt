@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lista de precios · Mates, bombillas y accesorios</title>
+  <meta name="description" content="Lista de precios de mates, bombillas, termos y accesorios. Precios en pesos argentinos.">
+  <meta name="theme-color" content="#2a5239">
+  <meta name="color-scheme" content="light">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lista de precios · Mates, bombillas y accesorios">
+  <meta property="og:description" content="Mirá los precios y las fotos de mates, bombillas, termos y accesorios.">
+  <meta property="og:locale" content="es_AR">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/young-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top__row">
+      <img class="top__logo" src="img/logo.webp" alt="MATESDVT" width="96" height="96">
+      <div>
+        <h1 id="site-name">Lista de precios</h1>
+        <p class="top__tagline">Mates, bombillas y accesorios</p>
+        <p class="top__updated" id="updated" hidden></p>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="wrap">
+      <label class="visually-hidden" for="q">Buscar artículo</label>
+      <input id="q" class="search" type="search" placeholder="Buscar artículo" autocomplete="off" enterkeyhint="search">
+      <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <p class="count" id="count" aria-live="polite"></p>
+    <ul class="grid" id="grid"></ul>
+    <p class="empty" id="empty" hidden>No encontramos artículos con esa búsqueda. Probá con otra palabra o elegí «Todos».</p>
+  </main>
+
+  <section class="wrap contact" id="contact" aria-labelledby="contact-title" hidden>
+    <div class="contact__card">
+      <img class="contact__logo" src="img/logo.webp" alt="" width="56" height="56" loading="lazy">
+      <div class="contact__text">
+        <strong id="contact-title">Seguinos en Instagram</strong>
+        <span id="ig-handle"></span>
+      </div>
+      <div class="contact__links">
+        <a class="btn btn--solid" id="ig-link" target="_blank" rel="noopener" hidden>Ver Instagram</a>
+        <a class="btn" id="wa-link" target="_blank" rel="noopener" hidden>WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap foot">
+    Precios en pesos argentinos. Sujetos a modificación sin previo aviso.
+  </footer>
+
+  <template id="card-tpl">
+    <li class="card">
+      <button type="button" class="card__photo">
+        <img alt="" decoding="async">
+        <span class="card__badge" hidden>Sin stock</span>
+      </button>
+      <div class="card__body">
+        <h2 class="card__name"></h2>
+        <p class="tag"><span class="tag__cur">$</span><span class="tag__num"></span></p>
+        <a class="card__ask" target="_blank" rel="noopener" hidden>Consultar</a>
+      </div>
+    </li>
+  </template>
+
+  <dialog class="viewer" id="viewer" aria-label="Foto del producto">
+    <form method="dialog"><button class="viewer__close" aria-label="Cerrar">×</button></form>
+    <img id="viewer-img" alt="">
+    <p class="viewer__cap" id="viewer-cap"></p>
+  </dialog>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+/* ---------- Tipografías (incluidas en /fonts, no dependen de internet) ---------- */
+@font-face{font-family:"Young Serif";src:url("../fonts/young-serif-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Figtree";src:url("../fonts/figtree-latin-wght-normal.woff2") format("woff2");font-weight:300 900;font-display:swap}
+
+/* ---------- Variables ---------- */
+:root{
+  --paper:#eef1ea; --card:#fff; --ink:#1c2a21; --muted:#56665b;
+  --yerba:#2a5239; --yerba-soft:#c9d8c6; --line:#d3d9cf; --photo-bg:#e3e8de;
+  --danger:#9c2f23; --focus:#c27b10;
+  --radius:.75rem; --gap:.75rem;
+  --serif:"Young Serif",Georgia,"Times New Roman",serif;
+  --sans:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:9rem}
+body{margin:0;min-height:100dvh;background:var(--paper);color:var(--ink);font:400 1rem/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,p,ul{margin:0;padding:0}
+ul{list-style:none}
+img{display:block;max-width:100%}
+button,input{font:inherit;color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{width:100%;max-width:75rem;margin-inline:auto;
+  padding-inline:max(1rem,env(safe-area-inset-left)) max(1rem,env(safe-area-inset-right))}
+
+/* ---------- Encabezado ---------- */
+.top{background:var(--yerba);color:var(--paper);padding-block:max(1.75rem,env(safe-area-inset-top)) 1.5rem}
+.top__row{display:flex;align-items:center;gap:1rem}
+.top__logo{flex:none;width:4.5rem;height:4.5rem;border-radius:50%;border:2px solid rgba(255,255,255,.25)}
+.top h1{font:400 clamp(1.8rem,7vw,3.75rem)/1.05 var(--serif);text-wrap:balance}
+.top__tagline{margin-top:.5rem;font-size:1.05rem;color:var(--yerba-soft)}
+.top__updated{margin-top:.25rem;font-size:.85rem;color:var(--yerba-soft);opacity:.85}
+
+/* ---------- Buscador y filtros (fijo al hacer scroll) ---------- */
+.toolbar{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding-block:.6rem}
+.search{width:100%;height:3rem;padding:0 1rem 0 2.75rem;border:1px solid var(--line);border-radius:var(--radius);background:#fff
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2356665b' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E")
+  no-repeat .9rem 50%/1.2rem;font-size:1rem;appearance:none;-webkit-appearance:none}
+.search:focus{border-color:var(--yerba)}
+.chips{display:flex;gap:.5rem;margin-top:.6rem;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;
+  margin-inline:calc(-1 * max(1rem,env(safe-area-inset-left)));padding-inline:max(1rem,env(safe-area-inset-left))}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:2.75rem;padding:0 1.1rem;border:1px solid var(--line);border-radius:var(--radius);background:#fff;font-weight:600;cursor:pointer;scroll-snap-align:start}
+.chip[aria-pressed="true"]{background:var(--yerba);border-color:var(--yerba);color:#fff}
+
+/* ---------- Grilla de productos ---------- */
+main{padding-block:1.25rem 2rem}
+.count{margin-bottom:.75rem;font-size:.9rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
+.empty{padding:3rem 1rem;text-align:center;color:var(--muted)}
+
+.card{display:flex;flex-direction:column;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
+.card__photo{position:relative;display:flex;align-items:center;justify-content:center;width:100%;padding:0;border:0;overflow:hidden;background:var(--photo-bg);aspect-ratio:1/1;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.card__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.card__photo:disabled{cursor:default}
+.card__nophoto{padding:1rem;text-align:center;font-size:.9rem;color:var(--muted)}
+.card__badge{position:absolute;top:.5rem;left:.5rem;padding:.2rem .55rem;border-radius:.4rem;background:var(--danger);color:#fff;font-size:.75rem;font-weight:700}
+.card__body{display:flex;flex-direction:column;gap:.6rem;flex:1;padding:.75rem}
+.card__name{font-size:.92rem;font-weight:600;line-height:1.25;text-wrap:balance}
+.card.is-out .card__photo img{filter:grayscale(1);opacity:.5}
+
+/* Precio con forma de etiqueta colgante: el único toque llamativo de la página */
+.tag{--hole:.17rem;align-self:flex-start;margin-top:auto;padding:.4rem .8rem .4rem 1.9rem;color:#fff;
+  font:400 1.3rem/1.1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap;
+  background:radial-gradient(circle at 1.05rem 50%,var(--card) 0 var(--hole),transparent calc(var(--hole) + .5px)),var(--yerba);
+  clip-path:polygon(1rem 0,100% 0,100% 100%,1rem 100%,0 50%)}
+.tag__cur{margin-right:.15rem;font-size:.85em;opacity:.85}
+.card.is-out .tag{background:radial-gradient(circle at 1.05rem 50%,var(--card) 0 var(--hole),transparent calc(var(--hole) + .5px)),#7b857e;text-decoration:line-through}
+
+.card__ask{display:flex;align-items:center;justify-content:center;min-height:2.75rem;border:1px solid var(--yerba);border-radius:.5rem;color:var(--yerba);font-weight:700;text-decoration:none}
+.card__ask:active{background:var(--yerba);color:#fff}
+
+/* ---------- Visor de foto ---------- */
+.viewer{width:min(92vw,34rem);max-height:92dvh;padding:0;border:0;border-radius:var(--radius);overflow:hidden;background:#fff}
+.viewer::backdrop{background:rgba(20,32,25,.8)}
+.viewer img{width:100%;max-height:78dvh;object-fit:contain;background:var(--photo-bg)}
+.viewer__cap{padding:.8rem 1rem 1rem;font-weight:600}
+.viewer__close{position:absolute;top:.5rem;right:.5rem;width:2.75rem;height:2.75rem;border:0;border-radius:50%;background:rgba(255,255,255,.92);font-size:1.7rem;line-height:1;cursor:pointer}
+body:has(dialog[open]){overflow:hidden}
+
+/* ---------- Contacto ---------- */
+.contact{padding-block:0 1.5rem}
+.contact__card{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding:1rem;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
+.contact__logo{flex:none;width:3.5rem;height:3.5rem;border-radius:50%}
+.contact__text{display:flex;flex-direction:column;flex:1 1 10rem}
+.contact__text strong{font:400 1.2rem/1.2 var(--serif)}
+.contact__text span{color:var(--muted)}
+.contact__links{display:flex;gap:.5rem;flex:1 1 100%}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:2.75rem;padding:0 1.1rem;border:1px solid var(--yerba);border-radius:.5rem;color:var(--yerba);font-weight:700;text-decoration:none}
+.btn--solid{background:var(--yerba);color:#fff}
+@media (min-width:600px){ .top__logo{width:6rem;height:6rem} .contact__links{flex:none} .btn{flex:none} }
+
+/* ---------- Pie ---------- */
+.foot{padding-block:0 max(2rem,env(safe-area-inset-bottom));font-size:.85rem;color:var(--muted)}
+
+/* ---------- Pantallas más grandes ---------- */
+@media (min-width:600px){ :root{--gap:1rem} .grid{grid-template-columns:repeat(3,minmax(0,1fr))} .card__name{font-size:1rem} }
+@media (min-width:900px){ .grid{grid-template-columns:repeat(4,minmax(0,1fr))} .toolbar .wrap{display:flex;gap:.75rem;align-items:center} .search{max-width:24rem} .chips{margin:0;padding:0;overflow:visible} }
+@media (min-width:1200px){ .grid{grid-template-columns:repeat(5,minmax(0,1fr))} }
+@media (hover:hover){ .chip:hover:not([aria-pressed="true"]){border-color:var(--yerba)} .card__photo:hover img{transform:scale(1.03)} .card__photo img{transition:transform .25s} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;scroll-behavior:auto!important} }
+
+/* ---------- Impresión ---------- */
+@media print{
+  body{background:#fff}.toolbar,.card__ask,.count{display:none}
+  .grid{grid-template-columns:repeat(3,1fr)}.card{break-inside:avoid}
+  .top{background:none;color:var(--ink);padding-block:0 1rem}.top__tagline{color:var(--muted)}
+}
